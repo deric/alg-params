@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cz.cvut.fit.config;
 
 import java.awt.Component;
@@ -17,29 +12,34 @@ import cz.cvut.fit.config.ui.PropertyEditor;
 import cz.cvut.fit.config.ui.PropertyRenderer;
 
 /**
- * A concrete implementation of the {@link org.ytoh.configurations.MutableProperty} interface wrapping aroung component fields.
+ * A concrete implementation of the
+ * {@link org.ytoh.configurations.MutableProperty} interface wrapping aroung
+ * component fields.
  *
- * <p>{@link PropertyEditor}s and {@link PropertyRenderer}s defined on the
+ * <p>
+ * {@link PropertyEditor}s and {@link PropertyRenderer}s defined on the
  * underling field apply for the underlying component not on this property.</p>
  *
  * @author ytoh
  */
 public class DefaultComponentProperty extends AbstractProperty<Object> {
 
-    private PropertyEditor<Object, Annotation>   editor;
-    private Annotation                           editorAnnotation;
+    private PropertyEditor<Object, Annotation> editor;
+    private Annotation editorAnnotation;
     private PropertyRenderer<Object, Annotation> renderer;
-    private Annotation                           rendererAnnotation;
-    private PublishingContext                    context;
+    private Annotation rendererAnnotation;
+    private PublishingContext context;
 
     /**
-     * Creates an instance of <code>DefaultComponentProperty</code> wrapping a component
+     * Creates an instance of <code>DefaultComponentProperty</code> wrapping a
+     * component
      * {@link Field}.
      *
      * @param annotation <code>Property</code> annotation defining this property
-     * @param field underlying <code>Field</code>
-     * @param sandbox a reference to the defining object
-     * @param validator {@link Validator} instance used to validate the component with
+     * @param field      underlying <code>Field</code>
+     * @param sandbox    a reference to the defining object
+     * @param validator  {@link Validator} instance used to validate the
+     *                   component with
      */
     public DefaultComponentProperty(cz.cvut.fit.config.annotations.Property annotation, Field field, Object sandbox, Validator validator) {
         super("".equals(annotation.name()) ? field.getName() : annotation.name(), annotation.description(), field, sandbox, validator);
@@ -48,14 +48,16 @@ public class DefaultComponentProperty extends AbstractProperty<Object> {
     /**
      * The property is set only if a new value is provided.
      *
-     * <p>Upon every new value the internal representation of this property
-     * is changed. (e.g. editorComponent and rendererComponent are recreated)</p>
+     * <p>
+     * Upon every new value the internal representation of this property
+     * is changed. (e.g. editorComponent and rendererComponent are
+     * recreated)</p>
      *
      * @see MutableProperty#setValue(java.lang.Object, boolean)
      */
     @Override
     public void setValue(Object value, boolean propagate) {
-        if(this.value != value) {
+        if (this.value != value) {
             // remember old and set the new value
             Object oldValue = this.value;
             this.value = value;
@@ -74,6 +76,10 @@ public class DefaultComponentProperty extends AbstractProperty<Object> {
      * Lazily instantiates and retrieves a {@link Component} to edit
      * the underlying component as a {@link Property}.
      *
+     * @param <A>
+     * @param editor
+     * @param annotation
+     * @param context
      * @see MutableProperty#getEditorComponent()
      * @return {@link Component} to be used to edit this property
      */
@@ -88,6 +94,9 @@ public class DefaultComponentProperty extends AbstractProperty<Object> {
      * Lazily instantiates and retrieves a {@link Component} to render
      * the underlying component as a {@link Property}.
      *
+     * @param <A>
+     * @param renderer
+     * @param annotation
      * @see MutableProperty#getRendererComponent()
      * @return {@link Component} to be used to render this property
      */

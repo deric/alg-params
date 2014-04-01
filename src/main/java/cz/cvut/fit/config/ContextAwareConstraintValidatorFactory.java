@@ -10,7 +10,7 @@ import cz.cvut.fit.config.context.MutableContext;
  * @author ytoh
  */
 public class ContextAwareConstraintValidatorFactory implements ConstraintValidatorFactory, ContextAware {
-    
+
     private final ConstraintValidatorFactory constraintValidatorFactory;
     private MutableContext context;
 
@@ -24,8 +24,8 @@ public class ContextAwareConstraintValidatorFactory implements ConstraintValidat
 
     public <T extends ConstraintValidator<?, ?>> T getInstance(Class<T> key) {
         T instance = constraintValidatorFactory.getInstance(key);
-        
-        if(ContextAware.class.isAssignableFrom(instance.getClass())) {
+
+        if (ContextAware.class.isAssignableFrom(instance.getClass())) {
             ((ContextAware) instance).registerContext(context);
         }
 

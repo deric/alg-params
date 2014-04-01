@@ -15,28 +15,30 @@ import java.util.Stack;
  */
 public final class Modules {
 
-	/** */
-	private static final Configuration configuration;
+    /**
+     *
+     */
+    private static final Configuration configuration;
 
-	static {
-		try {
-			configuration = new PropertiesConfiguration(Modules.class.getResource("/configuration.properties"));
-		} catch (ConfigurationException ex) {
-			throw new cz.cvut.fit.config.ConfigurationException("Could not configure modules.", ex);
-		}
-	}
+    static {
+        try {
+            configuration = new PropertiesConfiguration(Modules.class.getResource("/configuration.properties"));
+        } catch (ConfigurationException ex) {
+            throw new cz.cvut.fit.config.ConfigurationException("Could not configure modules.", ex);
+        }
+    }
 
-	/**
-	 * This is a utility class and it should not be initialized
-	 */
-	private Modules() {
-		throw new Error("Utility class should not be initialized.");
-	}
+    /**
+     * This is a utility class and it should not be initialized
+     */
+    private Modules() {
+        throw new Error("Utility class should not be initialized.");
+    }
 
-	/**
-	 *
-	 */
-	public static final void save() {
+    /**
+     *
+     */
+    public static final void save() {
         ModuleSerializer serializer = new XmlSerializer();
         serializer.setConfiguration(configuration);
         Stack<Module> stack = new Stack<Module>();
@@ -48,7 +50,7 @@ public final class Modules {
                 stack.push(m);
             }
         }
-	}
+    }
 
     /**
      *
@@ -58,35 +60,34 @@ public final class Modules {
         deserializer.deserializeModule(getRootModule());
     }
 
-	/**
-	 *
-	 * @param module
-	 * @return
-	 */
-	public static final boolean isRootModule(Module module) {
+    /**
+     *
+     * @param module
+     * @return
+     */
+    public static final boolean isRootModule(Module module) {
         return module.getParent() == null;
 //        return RootModule.INSTANCE.equals(module);
     }
 
-	/**
-	 *
-	 * @return
-	 */
+    /**
+     *
+     * @return
+     */
     public static final Module getRootModule() {
-		RootModule root = RootModule.INSTANCE;
+        RootModule root = RootModule.INSTANCE;
 
 //		if(!root.isInitialized()) {
 //            load();
 //		}
-
         return root;
     }
 
-	/**
-	 *
-	 * @param module
-	 * @return
-	 */
+    /**
+     *
+     * @param module
+     * @return
+     */
     public static final String getModuleFullName(Module module) {
         Validate.notNull(module, "Module cannot be null.");
 
@@ -98,46 +99,45 @@ public final class Modules {
      * @param module
      * @return
      */
-    private static final String getInnerModuleFullName(Module module) {
+    private static String getInnerModuleFullName(Module module) {
         return isRootModule(module) ? "" : getInnerModuleFullName(module.getParent()) + "/" + module.getName();
     }
 
-	/**
-	 *
-	 * @param fullName
-	 * @return
-	 */
+    /**
+     *
+     * @param fullName
+     * @return
+     */
     public static final Module getModule(String fullName) {
         Validate.notNull(fullName, "Module name cannot be null.");
         Validate.isTrue(fullName.startsWith("/"), "Module full name must start with '/'");
 
-        if("/".equals(fullName)) {
+        if ("/".equals(fullName)) {
             return getRootModule();
         }
 
         String[] names = fullName.substring(1).split("/");
         Module module = getRootModule();
 
-        for (int i = 0; i < names.length; i++) {
-            module = findSubModule(names[i], module);
+        for (String name : names) {
+            module = findSubModule(name, module);
         }
 
         return module;
     }
 
-	/**
-	 *
-	 * @param name
-	 * @param module
-	 * @return
-	 */
+    /**
+     *
+     * @param name
+     * @param module
+     * @return
+     */
     private static Module findSubModule(final String name, Module module) {
         return (Module) CollectionUtils.find(module.getChildren(), new Predicate() {
 
             public boolean evaluate(Object object) {
-                return name.equals(((Module)object).getName());
+                return name.equals(((Module) object).getName());
             }
-
         });
     }
 }

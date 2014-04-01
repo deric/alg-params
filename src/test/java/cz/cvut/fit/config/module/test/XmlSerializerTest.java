@@ -25,6 +25,7 @@ import static org.junit.Assert.*;
  * @author ytoh
  */
 public class XmlSerializerTest {
+
     private static File configurationDirectory;
     private ModuleSerializer moduleSerializer;
     private static Configuration configuration;
@@ -63,7 +64,7 @@ public class XmlSerializerTest {
             }
         });
         assertEquals(1, found.size());
-        assertEquals(2,found.get(0).listFiles().length);
+        assertEquals(2, found.get(0).listFiles().length);
     }
 
     @AfterClass

@@ -12,7 +12,7 @@ public interface ConfigurationManager {
      * If the supplied object is configurable, performs its configuration.
      *
      * @param o
-     * @return <code>true</code> if the object has been succesfully configured
+     * @return <code>true</code> if the object has been successfully configured
      */
     boolean configure(Object o);
 
@@ -22,7 +22,7 @@ public interface ConfigurationManager {
      *
      * @param o to check
      * @return <code>true</code> if object can be configure with this
-     * configuration manager
+     *         configuration manager
      */
     boolean isConfigurable(Object o);
 }

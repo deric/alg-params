@@ -9,16 +9,17 @@ import org.apache.commons.lang.Validate;
  * @author ytoh
  */
 public class BasicModule implements Module {
+
     private String name;
     transient private Module parent;
     private Map<String, Module> children;
     private Map<String, Object> components;
 
     private BasicModule(BasicModuleBuilder builder) {
-        this.name           = builder.name;
-        this.parent         = builder.parent;
-        this.children       = builder.children;
-        this.components     = builder.components;
+        this.name = builder.name;
+        this.parent = builder.parent;
+        this.children = builder.children;
+        this.components = builder.components;
     }
 
     public static BasicModuleBuilder withName(String name, Module parent) {
@@ -69,13 +70,14 @@ public class BasicModule implements Module {
     }
 
     public Collection<String> getComponentNames() {
-		return Collections.unmodifiableSet(components.keySet());
-	}
+        return Collections.unmodifiableSet(components.keySet());
+    }
 
-	/**
-	 *
-	 */
+    /**
+     *
+     */
     public static final class BasicModuleBuilder {
+
         private String name;                        // required
         private Module parent;                      // required
         private Map<String, Module> children;              // optional

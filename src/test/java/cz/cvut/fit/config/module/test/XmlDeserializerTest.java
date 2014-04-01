@@ -20,9 +20,10 @@ import cz.cvut.fit.config.module.XmlDeserializer;
  * @author ytoh
  */
 public class XmlDeserializerTest {
+
     private ModuleDeserializer moduleDeserializer;
     private static Configuration configuration;
-    private Module deserializationRoot = BasicModule.withName("deserialization-test", Modules.getRootModule()).build();
+    private final Module deserializationRoot = BasicModule.withName("deserialization-test", Modules.getRootModule()).build();
 
     @BeforeClass
     public static void prepare() {
@@ -43,15 +44,16 @@ public class XmlDeserializerTest {
 
         Module core = (Module) CollectionUtils.find(deserializationRoot.getChildren(), new Predicate() {
 
+            @Override
             public boolean evaluate(Object object) {
-                return "core".equals(((Module)object).getName());
+                return "core".equals(((Module) object).getName());
             }
         });
 
         Module extension = (Module) CollectionUtils.find(deserializationRoot.getChildren(), new Predicate() {
-
+            @Override
             public boolean evaluate(Object object) {
-                return "extension".equals(((Module)object).getName());
+                return "extension".equals(((Module) object).getName());
             }
         });
 
@@ -61,21 +63,21 @@ public class XmlDeserializerTest {
         Module moduleA = (Module) CollectionUtils.find(core.getChildren(), new Predicate() {
 
             public boolean evaluate(Object object) {
-                return "moduleA".equals(((Module)object).getName());
+                return "moduleA".equals(((Module) object).getName());
             }
         });
 
         Module moduleB = (Module) CollectionUtils.find(core.getChildren(), new Predicate() {
 
             public boolean evaluate(Object object) {
-                return "moduleB".equals(((Module)object).getName());
+                return "moduleB".equals(((Module) object).getName());
             }
         });
 
         Module module1 = (Module) CollectionUtils.find(extension.getChildren(), new Predicate() {
 
             public boolean evaluate(Object object) {
-                return "module1".equals(((Module)object).getName());
+                return "module1".equals(((Module) object).getName());
             }
         });
 
