@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cz.cvut.fit.config.annotations;
 
 import java.lang.annotation.ElementType;
@@ -19,6 +14,7 @@ import cz.cvut.fit.config.ui.PropertyTableEditor;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-@Editor(component=PropertyTableEditor.class)
-@Renderer(component=ComponentNameRenderer.class)
-public @interface Table { }
+@Editor(component = PropertyTableEditor.class)
+@Renderer(component = ComponentNameRenderer.class)
+public @interface Table {
+}

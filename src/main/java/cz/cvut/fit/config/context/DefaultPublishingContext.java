@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cz.cvut.fit.config.context;
 
 import java.util.HashMap;
@@ -21,9 +16,13 @@ import org.apache.commons.collections.map.LazyMap;
  */
 public class DefaultPublishingContext implements PublishingContext, MutableContext {
 
-    /** */
+    /**
+     *
+     */
     private MutableContext delegate;
-    /** */
+    /**
+     *
+     */
     private Map<Class<?>, Map<String, Set<Subscriber<?>>>> subscribers;
 
     /**
@@ -33,17 +32,21 @@ public class DefaultPublishingContext implements PublishingContext, MutableConte
     public DefaultPublishingContext(MutableContext delegate) {
         this.delegate = delegate;
 
-        subscribers = LazyMap.decorate(new HashMap<Class<?>, Map<String, Set<Subscriber<?>>>>(), new Factory() {
-
-            public Object create() {
-                return LazyMap.decorate(new HashMap<String, Set<Subscriber<?>>>(), new Factory() {
+        subscribers = LazyMap.decorate(
+                new HashMap<Class<?>, Map<String, Set<Subscriber<?>>>>(),
+                new Factory() {
 
                     public Object create() {
-                        return new HashSet<Subscriber<?>>();
+                        return LazyMap.decorate(
+                                new HashMap<String, Set<Subscriber<?>>>(),
+                                new Factory() {
+
+                                    public Object create() {
+                                        return new HashSet<Subscriber<?>>();
+                                    }
+                                });
                     }
                 });
-            }
-        });
     }
 
     public <T> List<T> getList(Class<T> type, String key) {
@@ -54,16 +57,19 @@ public class DefaultPublishingContext implements PublishingContext, MutableConte
         return delegate.get(type, key);
     }
 
-    public <T> void subscribeTo(Class<T> type, String key, Subscriber<T> subscriber) {
+    public <T> void subscribeTo(Class<T> type, String key,
+            Subscriber<T> subscriber) {
         subscribers.get(type).get(key).add(subscriber);
     }
 
-    public <T> void register(Class<T> type, List<? extends T> options, String key) {
+    public <T> void register(Class<T> type, List<? extends T> options,
+            String key) {
         CollectionUtils.forAllDo(options, new Closure() {
 
             public void execute(Object input) {
                 if (input instanceof ContextAware) {
-                    ((ContextAware) input).registerContext(DefaultPublishingContext.this);
+                    ((ContextAware) input).registerContext(
+                            DefaultPublishingContext.this);
                 }
             }
         });
@@ -71,7 +77,7 @@ public class DefaultPublishingContext implements PublishingContext, MutableConte
         delegate.register(type, options, key);
 
         for (Subscriber<?> subscriber : subscribers.get(type).get(key)) {
-            ((Subscriber<T>)subscriber).notifyOf(this, options, key);
+            ((Subscriber<T>) subscriber).notifyOf(this, options, key);
         }
     }
 
@@ -79,7 +85,7 @@ public class DefaultPublishingContext implements PublishingContext, MutableConte
         if (value instanceof ContextAware) {
             ((ContextAware) value).registerContext(DefaultPublishingContext.this);
         }
-        
+
         delegate.register(type, value, key);
     }
 }

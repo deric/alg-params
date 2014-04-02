@@ -13,35 +13,35 @@ import cz.cvut.fit.config.annotations.Range;
  *
  * @author ytoh
  */
-@Component(name="Test bean", description="A subroutine")
+@Component(name = "Test bean", description = "A subroutine")
 public class Bean2 {
 
-    @Property(name="Be fast")
+    @Property(name = "Be fast")
     @AssertTrue
     private boolean beFast = true;
 
-    @Property(name="Act slow")
+    @Property(name = "Act slow")
     private boolean beSlow;
 
-    @Property(name="Enum test")
+    @Property(name = "Enum test")
     @NotNull
     private Type type = Type.TYPE_2;
 
-    @Property(name="String property")
+    @Property(name = "String property")
     @NotEmpty
     @NotNull
     @MaxLength(4)
-    @Pattern(regexp="[0-9]+")
+    @Pattern(regexp = "[0-9]+")
     private String s = "1234";
 
-    @Property(name="Counter")
-    @Range(from=10, to=500)
+    @Property(name = "Counter")
+    @Range(from = 10, to = 500)
     private int c = 10;
 
-    @Property(name="Double d ;-)")
+    @Property(name = "Double d ;-)")
     private double d = 0.0;
 
-    @Property(name="Third level bean")
+    @Property(name = "Third level bean")
     private Bean3 bean = new Bean3();
 
     public Bean3 getBean() {
@@ -101,6 +101,7 @@ public class Bean2 {
     }
 
     public static enum Type {
+
         TYPE_1, TYPE_2, TYPE_3
     }
 }

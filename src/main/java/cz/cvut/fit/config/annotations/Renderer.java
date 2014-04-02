@@ -18,7 +18,8 @@ public @interface Renderer {
     /**
      * {@link PropertyRenderer} implementation to be used.
      *
-     * @return <code>PropertyRenderer</code> to be used to get the editing component
+     * @return <code>PropertyRenderer</code> to be used to get the editing
+     *         component
      */
     Class<? extends PropertyRenderer> component();
 }

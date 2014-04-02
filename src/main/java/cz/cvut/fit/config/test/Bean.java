@@ -17,23 +17,23 @@ import cz.cvut.fit.config.annotations.Table;
  *
  * @author ytoh
  */
-@Component(name="First bean")
+@Component(name = "First bean")
 public class Bean {
 
-    @Property(name="ON OFF")
+    @Property(name = "ON OFF")
     @MaxLength(20)
     @NotEmpty
     private String s = "ON!";
 
-    @Property(name="switch property", description="switchs the state of the hello world property.")
+    @Property(name = "switch property", description = "switchs the state of the hello world property.")
     @CheckBox
     private boolean b = true;
 
     @Property
     @Table
-    private List<Switcher> switchers = Arrays.asList(new Switcher[] { new Switcher(), new Switcher() });
+    private List<Switcher> switchers = Arrays.asList(new Switcher[]{new Switcher(), new Switcher()});
 
-    @Property(name="Map of booleans")
+    @Property(name = "Map of booleans")
     @CheckBox
     private Map<String, Boolean> map = new HashMap<String, Boolean>();
 
@@ -100,7 +100,6 @@ public class Bean {
 //    @NotNull
 //    @Pattern(regex = "ONE|TWO|THREE")
 //    private String one;
-
 //    @Property(name = "Subroutine")
     private Bean2 bean2 = new Bean2();
 //
@@ -115,6 +114,7 @@ public class Bean {
         this.bean2 = bean2;
     }
 //
+
     public Bean2 getBean2() {
         return bean2;
     }
@@ -135,8 +135,6 @@ public class Bean {
 //    public void setOne(String one) {
 //        this.one = one;
 //    }
-
-
     public String getS() {
         return s;
     }
@@ -152,5 +150,4 @@ public class Bean {
 //    public void setD(double d) {
 //        this.d = d;
 //    }
-
 }

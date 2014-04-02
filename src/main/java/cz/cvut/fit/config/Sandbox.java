@@ -17,19 +17,20 @@ import org.apache.commons.beanutils.PropertyUtils;
  */
 public class Sandbox implements PropertyChangeListener {
 
-    /** property references */
+    /**
+     * property references
+     */
     private List<AbstractProperty> properties;
-    /** object declaring the properties */
+    /**
+     * object declaring the properties
+     */
     private Object sandbox;
 
     /**
-     * Factory method creating a sandboxed version of the supplied object.
-     *
-     * @param sandbox object to sandbox
-     * @return a sandboxed object
+     * Create an empty <code>Sandbox</code> instance.
      */
-    public static final Sandbox newInstance(Object sandbox) {
-        return new Sandbox(sandbox);
+    private Sandbox() {
+        this.properties = new ArrayList<AbstractProperty>();
     }
 
     /**
@@ -43,15 +44,18 @@ public class Sandbox implements PropertyChangeListener {
     }
 
     /**
-     * Create an empty <code>Sandbox</code> instance.
+     * Factory method creating a sandboxed version of the supplied object.
+     *
+     * @param sandbox object to sandbox
+     * @return a sandboxed object
      */
-    private Sandbox() {
-        this.properties = new ArrayList<AbstractProperty>();
+    public static final Sandbox newInstance(Object sandbox) {
+        return new Sandbox(sandbox);
     }
 
     /**
      * Adds properties to this sandbox.
-     * 
+     *
      * @param property
      */
     public void addProperty(AbstractProperty property) {
@@ -62,22 +66,30 @@ public class Sandbox implements PropertyChangeListener {
     /**
      * Listen for property changes and detect side-effects. If any side-effects
      * are detected reload the relevant properties.
-     * 
-     * @see PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent) 
+     *
+     * @see
+     * PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
      */
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         try {
             for (AbstractProperty defaultProperty : properties) {
                 if (evt.getSource() != defaultProperty) {
-                    defaultProperty.setValue(PropertyUtils.getProperty(sandbox, defaultProperty.getFieldName()), false);
+                    defaultProperty.setValue(
+                            PropertyUtils
+                            .getProperty(sandbox, defaultProperty.getFieldName()),
+                            false);
                     // if the property has a state associated try updating the property state
                     String fieldName = defaultProperty.getFieldName();
-                    // workaround: PropertyUtils does not property detect the state property for single letter properties
+                    // workaround: PropertyUtils does not property detect
+                    //the state property for single letter properties
                     if (fieldName.length() == 1) {
                         fieldName = fieldName.toUpperCase();
                     }
                     if (PropertyUtils.isReadable(sandbox, fieldName + "State")) {
-                        defaultProperty.setPropertyState((PropertyState) PropertyUtils.getProperty(sandbox, fieldName + "State"));
+                        defaultProperty.setPropertyState(
+                                (PropertyState) PropertyUtils.getProperty(
+                                        sandbox, fieldName + "State"));
                     }
                 }
             }

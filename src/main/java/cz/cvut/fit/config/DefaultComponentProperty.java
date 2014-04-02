@@ -1,6 +1,5 @@
 package cz.cvut.fit.config;
 
-import java.awt.Component;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -41,8 +40,11 @@ public class DefaultComponentProperty extends AbstractProperty<Object> {
      * @param validator  {@link Validator} instance used to validate the
      *                   component with
      */
-    public DefaultComponentProperty(cz.cvut.fit.config.annotations.Property annotation, Field field, Object sandbox, Validator validator) {
-        super("".equals(annotation.name()) ? field.getName() : annotation.name(), annotation.description(), field, sandbox, validator);
+    public DefaultComponentProperty(
+            cz.cvut.fit.config.annotations.Property annotation, Field field,
+            Object sandbox, Validator validator) {
+        super("".equals(annotation.name()) ? field.getName() : annotation.name(),
+              annotation.description(), field, sandbox, validator);
     }
 
     /**
@@ -53,6 +55,8 @@ public class DefaultComponentProperty extends AbstractProperty<Object> {
      * is changed. (e.g. editorComponent and rendererComponent are
      * recreated)</p>
      *
+     * @param value
+     * @param propagate
      * @see MutableProperty#setValue(java.lang.Object, boolean)
      */
     @Override
@@ -65,8 +69,10 @@ public class DefaultComponentProperty extends AbstractProperty<Object> {
             if (propagate) {
                 store();
             }
-            editorComponent = editor.getEditorComponent(this, editorAnnotation, context);
-            rendererComponent = renderer.getRendererComponent(this, rendererAnnotation);
+            editorComponent = editor.getEditorComponent(this, editorAnnotation,
+                                                        context);
+            rendererComponent = renderer.getRendererComponent(this,
+                                                              rendererAnnotation);
             // notify listeners a change has occured
             support.firePropertyChange("value", oldValue, this.value);
         }
@@ -84,7 +90,9 @@ public class DefaultComponentProperty extends AbstractProperty<Object> {
      * @return {@link Component} to be used to edit this property
      */
     @Override
-    public <A extends Annotation> void setEditor(PropertyEditor<Object, A> editor, A annotation, PublishingContext context) {
+    public <A extends Annotation> void setEditor(
+            PropertyEditor<Object, A> editor, A annotation,
+            PublishingContext context) {
         this.editor = (PropertyEditor<Object, Annotation>) editor;
         this.editorAnnotation = annotation;
         this.context = context;
@@ -101,12 +109,15 @@ public class DefaultComponentProperty extends AbstractProperty<Object> {
      * @return {@link Component} to be used to render this property
      */
     @Override
-    public <A extends Annotation> void setRenderer(PropertyRenderer<Object, A> renderer, A annotation) {
+    public <A extends Annotation> void setRenderer(
+            PropertyRenderer<Object, A> renderer, A annotation) {
         this.renderer = (PropertyRenderer<Object, Annotation>) renderer;
         this.rendererAnnotation = annotation;
-        rendererComponent = this.renderer.getRendererComponent(this, rendererAnnotation);
+        rendererComponent = this.renderer.getRendererComponent(this,
+                                                               rendererAnnotation);
     }
 
+    @Override
     public void store() {
         try {
             Object oldValue = PropertyUtils.getProperty(sandbox, getFieldName());
@@ -121,7 +132,8 @@ public class DefaultComponentProperty extends AbstractProperty<Object> {
         }
     }
 
+    @Override
     public void configure(Configuration provider) {
-        System.out.println("co teraz?");
+        //nothing to do
     }
 }

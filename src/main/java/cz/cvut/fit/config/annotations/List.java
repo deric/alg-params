@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cz.cvut.fit.config.annotations;
 
 import cz.cvut.fit.config.ui.ComponentNameRenderer;
@@ -18,6 +13,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-@Editor(component=PropertyListEditor.class)
-@Renderer(component=ComponentNameRenderer.class)
-public @interface List { }
+@Editor(component = PropertyListEditor.class)
+@Renderer(component = ComponentNameRenderer.class)
+public @interface List {
+}

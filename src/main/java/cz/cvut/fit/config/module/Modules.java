@@ -15,16 +15,15 @@ import java.util.Stack;
  */
 public final class Modules {
 
-    /**
-     *
-     */
     private static final Configuration configuration;
 
     static {
         try {
-            configuration = new PropertiesConfiguration(Modules.class.getResource("/configuration.properties"));
+            configuration = new PropertiesConfiguration(
+                    Modules.class.getResource("/configuration.properties"));
         } catch (ConfigurationException ex) {
-            throw new cz.cvut.fit.config.ConfigurationException("Could not configure modules.", ex);
+            throw new cz.cvut.fit.config.ConfigurationException(
+                    "Could not configure modules.", ex);
         }
     }
 
@@ -38,7 +37,7 @@ public final class Modules {
     /**
      *
      */
-    public static final void save() {
+    public static void save() {
         ModuleSerializer serializer = new XmlSerializer();
         serializer.setConfiguration(configuration);
         Stack<Module> stack = new Stack<Module>();
@@ -55,7 +54,7 @@ public final class Modules {
     /**
      *
      */
-    public static final void load() {
+    public static void load() {
         ModuleDeserializer deserializer = new XmlDeserializer();
         deserializer.deserializeModule(getRootModule());
     }
@@ -65,7 +64,7 @@ public final class Modules {
      * @param module
      * @return
      */
-    public static final boolean isRootModule(Module module) {
+    public static boolean isRootModule(Module module) {
         return module.getParent() == null;
 //        return RootModule.INSTANCE.equals(module);
     }
@@ -74,7 +73,7 @@ public final class Modules {
      *
      * @return
      */
-    public static final Module getRootModule() {
+    public static Module getRootModule() {
         RootModule root = RootModule.INSTANCE;
 
 //		if(!root.isInitialized()) {
@@ -88,7 +87,7 @@ public final class Modules {
      * @param module
      * @return
      */
-    public static final String getModuleFullName(Module module) {
+    public static String getModuleFullName(Module module) {
         Validate.notNull(module, "Module cannot be null.");
 
         return isRootModule(module) ? "/" : getInnerModuleFullName(module);
@@ -100,7 +99,8 @@ public final class Modules {
      * @return
      */
     private static String getInnerModuleFullName(Module module) {
-        return isRootModule(module) ? "" : getInnerModuleFullName(module.getParent()) + "/" + module.getName();
+        return isRootModule(module) ? "" : getInnerModuleFullName(
+                module.getParent()) + "/" + module.getName();
     }
 
     /**
@@ -108,9 +108,10 @@ public final class Modules {
      * @param fullName
      * @return
      */
-    public static final Module getModule(String fullName) {
+    public static Module getModule(String fullName) {
         Validate.notNull(fullName, "Module name cannot be null.");
-        Validate.isTrue(fullName.startsWith("/"), "Module full name must start with '/'");
+        Validate.isTrue(fullName.startsWith("/"),
+                        "Module full name must start with '/'");
 
         if ("/".equals(fullName)) {
             return getRootModule();
@@ -133,11 +134,11 @@ public final class Modules {
      * @return
      */
     private static Module findSubModule(final String name, Module module) {
-        return (Module) CollectionUtils.find(module.getChildren(), new Predicate() {
-
-            public boolean evaluate(Object object) {
-                return name.equals(((Module) object).getName());
-            }
-        });
+        return (Module) CollectionUtils.find(module.getChildren(),
+                                             new Predicate() {
+                                                 public boolean evaluate(Object object) {
+                                                     return name.equals(((Module) object).getName());
+                                                 }
+                                             });
     }
 }

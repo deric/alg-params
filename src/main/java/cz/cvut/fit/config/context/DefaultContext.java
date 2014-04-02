@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.cvut.fit.config.context;
 
 import java.util.ArrayList;
@@ -14,17 +10,22 @@ import org.apache.commons.collections.map.LazyMap;
 /**
  * A typesafe implementation of the {@link Context} interface.
  *
- * <p>This implementation uses a {@link Map} of <code>Map</code>s with lazy
+ * <p>
+ * This implementation uses a {@link Map} of <code>Map</code>s with lazy
  * initialization to store and retrieve the option lists.</p>
  *
  * @author ytoh
  */
 public class DefaultContext implements MutableContext {
 
-    /** an internal registry of option lists */
+    /**
+     * an internal registry of option lists
+     */
     private Map<Class<?>, Map<String, List<?>>> listRegistry;
 
-    /** an internal registry */
+    /**
+     * an internal registry
+     */
     private Map<Class<?>, Map<String, Object>> registry;
 
     /**
@@ -52,7 +53,7 @@ public class DefaultContext implements MutableContext {
     }
 
     /**
-     * 
+     *
      * @param type
      * @param key
      * @return
@@ -65,9 +66,9 @@ public class DefaultContext implements MutableContext {
      * Registers a list of options of a certain type with a certain
      * <code>String</code> key in the internal registry.
      *
-     * @param type of the options to register
+     * @param type    of the options to register
      * @param options list of options to register
-     * @param key <code>String</code> key to register options under
+     * @param key     <code>String</code> key to register options under
      */
     public <T> void register(Class<T> type, List<? extends T> options, String key) {
         listRegistry.get(type).put(key, options);

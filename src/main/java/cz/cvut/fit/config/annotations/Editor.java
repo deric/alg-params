@@ -18,7 +18,8 @@ public @interface Editor {
     /**
      * {@link PropertyEditor} implementation to be used.
      *
-     * @return <code>PropertyEditor</code> to be used to get the editing component
+     * @return <code>PropertyEditor</code> to be used to get the editing
+     *         component
      */
     Class<? extends PropertyEditor> component();
 }

@@ -9,7 +9,8 @@ import javax.validation.Payload;
 import cz.cvut.fit.config.OneOfValidator;
 
 /**
- * A property constraint restricting the property content only to certain values.
+ * A property constraint restricting the property content only to certain
+ * values.
  *
  * @author ytoh
  */
@@ -29,5 +30,5 @@ public @interface OneOf {
 
     Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 }
