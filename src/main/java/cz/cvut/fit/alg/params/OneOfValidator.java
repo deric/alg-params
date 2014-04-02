@@ -15,7 +15,7 @@ public class OneOfValidator implements ConstraintValidator<OneOf, String> {
 
     public void initialize(OneOf annotation) {
         if (annotation.value().length == 0) {
-            throw new ConfigurationException("No options defined. (The propery cannot be set.)");
+            throw new ConfigException("No options defined. (The propery cannot be set.)");
         }
 
         options = annotation.value();

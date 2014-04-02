@@ -39,7 +39,7 @@ public interface ModuleSerializer {
      * Adds special handler for XML serializer for given class
      *
      * @param servedType Class to be served by this delegate.
-     * @param delegate   Delegate class instance
+     * @param delegate Delegate class instance
      */
     void addNewDelegate(Class<?> servedType, PersistenceDelegate delegate);
 }

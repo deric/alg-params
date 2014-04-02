@@ -12,12 +12,14 @@ import cz.cvut.fit.alg.params.util.Annotations;
 import cz.cvut.fit.alg.params.util.PropertyExtractor;
 
 /**
- * A {@link ConfigurationManager} implementation configuring objects based
- * on {@link org.ytoh.configurations.annotations.Property} annotated {@link Field}s.
+ * A {@link ConfigurationManager} implementation configuring objects based on
+ * {@link org.ytoh.configurations.annotations.Property} annotated
+ * {@link Field}s.
  *
  * @author ytoh
  */
 public class PropertyConfigurationManager implements ConfigurationManager {
+
     private final Configuration provider;
     private final PropertyExtractor extractor;
 
@@ -26,13 +28,15 @@ public class PropertyConfigurationManager implements ConfigurationManager {
      *
      * @param provider the {@link Configuration} to be used to retrieve
      * configuration
-     * @param extractor the {@link PropertyExtractor} to be used to extract properties.
+     * @param extractor the {@link PropertyExtractor} to be used to extract
+     * properties.
      */
     public PropertyConfigurationManager(Configuration provider, PropertyExtractor extractor) {
         this.provider = provider;
         this.extractor = extractor;
     }
 
+    @Override
     public boolean configure(Object o) {
         List<Property> properties = extractor.propertiesFor(o);
         for (Property property : properties) {
@@ -43,33 +47,41 @@ public class PropertyConfigurationManager implements ConfigurationManager {
     }
 
     /**
-     * Check if the supplied object can be configured by this {@link ConfigurationManager}.
+     * Check if the supplied object can be configured by this
+     * {@link ConfigurationManager}.
      *
-     * <p>The object to be configured is required to comply to the <i>JavaBeans</i>
-     * convention. This <code>ConfigurationManager</code> checks whether
-     * the supplied object has a public no-argument constructor and if all
-     * the defined properties ({@link Field}s annotated witch
-     * {@link org.ytoh.configurations.annotations.Property}) have both
-     * an accessor and a mutator method.</p>
+     * <p>
+     * The object to be configured is required to comply to the <i>JavaBeans</i>
+     * convention. This <code>ConfigurationManager</code> checks whether the
+     * supplied object has a public no-argument constructor and if all the
+     * defined properties ({@link Field}s annotated witch
+     * {@link org.ytoh.configurations.annotations.Property}) have both an
+     * accessor and a mutator method.</p>
      *
      * @see ConfigurationManager#isConfigurable(java.lang.Object)
      *
      * @param o object to be configured
-     * @return <code>true</code> if the object is configurable using this <code>ConfigurationManager</code>
+     * @return <code>true</code> if the object is configurable using this
+     * <code>ConfigurationManager</code>
      */
+    @Override
     public boolean isConfigurable(final Object o) {
         // check if o has a public no-argument constructor
-        if(ConstructorUtils.getAccessibleConstructor(o.getClass(), new Class[0]) == null) {
+        if (ConstructorUtils.getAccessibleConstructor(o.getClass(), new Class[0]) == null) {
             return false;
         }
-        
-        List<Field> properties = Annotations.filter(Arrays.asList(o.getClass().getDeclaredFields()), cz.cvut.fit.alg.params.annotations.Property.class);
+
+        List<Field> properties = Annotations.filter(
+                Arrays.asList(o.getClass().getDeclaredFields()),
+                cz.cvut.fit.alg.params.annotations.Property.class);
 
         // check if all of the Property annotated fields have both an accessor and a mutator method
         return !CollectionUtils.exists(properties, new Predicate() {
 
             public boolean evaluate(Object field) {
-                return !(PropertyUtils.isReadable(o, ((Field)field).getName()) && PropertyUtils.isWriteable(o, ((Field)field).getName()));
+                return !(PropertyUtils.isReadable(o,
+                        ((Field) field).getName())
+                        && PropertyUtils.isWriteable(o, ((Field) field).getName()));
             }
         });
     }

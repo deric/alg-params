@@ -8,29 +8,29 @@ import org.apache.commons.configuration.Configuration;
  */
 public interface ModuleDeserializer {
 
-	/**
-	 *
-	 * @param configuration
-	 */
-	public void setConfiguration(Configuration configuration);
+    /**
+     *
+     * @param configuration
+     */
+    void setConfiguration(Configuration configuration);
 
     /**
-     * Sets confiruation base directory.
+     * Sets configuration base directory.
+     *
      * @param path Path to directory with configuration files
      */
-    public void setConfigurationDirectory(String path);
+    void setConfigurationDirectory(String path);
 
     /**
-     * Returns confiruation base directory.
+     * Returns configuration base directory.
+     *
      * @return A path to directory with configuration.
      */
-    public String getConfigurationDirectory();
+    String getConfigurationDirectory();
 
-
-	/**
-	 *
-	 * @param parent
-	 * @return
-	 */
-	public void deserializeModule(Module parent);
+    /**
+     *
+     * @param parent
+     */
+    void deserializeModule(Module parent);
 }

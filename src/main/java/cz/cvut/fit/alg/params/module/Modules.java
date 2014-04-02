@@ -1,5 +1,6 @@
 package cz.cvut.fit.alg.params.module;
 
+import cz.cvut.fit.alg.params.ConfigException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.configuration.Configuration;
@@ -22,8 +23,7 @@ public final class Modules {
             configuration = new PropertiesConfiguration(
                     Modules.class.getResource("/configuration.properties"));
         } catch (ConfigurationException ex) {
-            throw new cz.cvut.fit.alg.params.ConfigurationException(
-                    "Could not configure modules.", ex);
+            throw new ConfigException("Could not configure modules.", ex);
         }
     }
 
@@ -34,9 +34,6 @@ public final class Modules {
         throw new Error("Utility class should not be initialized.");
     }
 
-    /**
-     *
-     */
     public static void save() {
         ModuleSerializer serializer = new XmlSerializer();
         serializer.setConfiguration(configuration);
@@ -76,9 +73,6 @@ public final class Modules {
     public static Module getRootModule() {
         RootModule root = RootModule.INSTANCE;
 
-//		if(!root.isInitialized()) {
-//            load();
-//		}
         return root;
     }
 
@@ -111,7 +105,7 @@ public final class Modules {
     public static Module getModule(String fullName) {
         Validate.notNull(fullName, "Module name cannot be null.");
         Validate.isTrue(fullName.startsWith("/"),
-                        "Module full name must start with '/'");
+                "Module full name must start with '/'");
 
         if ("/".equals(fullName)) {
             return getRootModule();
@@ -135,10 +129,11 @@ public final class Modules {
      */
     private static Module findSubModule(final String name, Module module) {
         return (Module) CollectionUtils.find(module.getChildren(),
-                                             new Predicate() {
-                                                 public boolean evaluate(Object object) {
-                                                     return name.equals(((Module) object).getName());
-                                                 }
-                                             });
+                new Predicate() {
+                    @Override
+                    public boolean evaluate(Object object) {
+                        return name.equals(((Module) object).getName());
+                    }
+                });
     }
 }

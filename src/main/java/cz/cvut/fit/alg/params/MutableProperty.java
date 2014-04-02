@@ -1,20 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cz.cvut.fit.alg.params;
 
-import java.lang.annotation.Annotation;
+import cz.cvut.fit.alg.params.api.PropertyEditor;
+import cz.cvut.fit.alg.params.api.PropertyRenderer;
 import cz.cvut.fit.alg.params.context.PublishingContext;
-import cz.cvut.fit.alg.params.ui.PropertyEditor;
-import cz.cvut.fit.alg.params.ui.PropertyRenderer;
+import java.lang.annotation.Annotation;
 
 /**
  * An extension to the {@link Property} interface adding special mutator methods
  * and a set of specialized accessor methods related to the underlying objects.
  *
  * @author ytoh
+ * @param <T>
  */
 public interface MutableProperty<T> extends Property<T> {
 
@@ -54,7 +50,7 @@ public interface MutableProperty<T> extends Property<T> {
 
     /**
      * Sets the property state.
-     * 
+     *
      * @param state the new property state
      */
     void setPropertyState(PropertyState state);
@@ -63,6 +59,7 @@ public interface MutableProperty<T> extends Property<T> {
      * Sets the {@link PropertyEditor} used to retrieve the {@link Component}
      * to be used to edit this property.
      *
+     * @param <A>
      * @param editor <code>PropertyEditor</code> instance used to get
      * the editor component
      * @param annotation {@link Annotation} instance defining
@@ -74,7 +71,8 @@ public interface MutableProperty<T> extends Property<T> {
     /**
      * Sets the {@link PropertyRenderer} used to retrieve the {@link Component}
      * to be used to render this property.
-     * 
+     *
+     * @param <A>
      * @param renderer <code>PropertyRenderer</code> instance used to get
      * the renderer component
      * @param annotation {@link Annotation} instance defining

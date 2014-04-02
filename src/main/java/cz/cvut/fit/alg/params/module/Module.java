@@ -8,47 +8,47 @@ import java.util.Collection;
  */
 public interface Module {
 
-	/**
-	 *
-	 * @return
-	 */
+    /**
+     *
+     * @return
+     */
     String getName();
 
-	/**
-	 *
-	 * @return
-	 */
+    /**
+     *
+     * @return
+     */
     Module getParent();
 
-	/**
-	 *
-	 * @return
-	 */
+    /**
+     *
+     * @return
+     */
     Collection<? extends Module> getChildren();
 
-	/**
-	 *
-	 * @return
-	 */
+    /**
+     *
+     * @return
+     */
     Collection<? extends Object> getComponents();
 
-	/**
-	 *
-	 * @return
-	 */
-	Collection<String> getComponentNames();
+    /**
+     *
+     * @return
+     */
+    Collection<String> getComponentNames();
 
-	/**
-	 *
-	 * @param name
-	 * @return
-	 */
+    /**
+     *
+     * @param name
+     * @return
+     */
     Object getComponent(String name);
 
-	/**
-	 *
-	 * @param module
-	 */
+    /**
+     *
+     * @param module
+     */
     void register(Module module);
 
     Module findConfigurationByName(String name);

@@ -1,4 +1,4 @@
-package cz.cvut.fit.alg.params.ui;
+package cz.cvut.fit.alg.params.api;
 
 import java.awt.Component;
 import java.lang.annotation.Annotation;
@@ -10,6 +10,8 @@ import cz.cvut.fit.alg.params.context.PublishingContext;
  * the underlying property.
  *
  * @author ytoh
+ * @param <T>
+ * @param <A>
  */
 public interface PropertyEditor<T, A extends Annotation> {
 
@@ -22,5 +24,5 @@ public interface PropertyEditor<T, A extends Annotation> {
      * @param context dynamic context to retrieve options from
      * @return <code>Component</code> bound to the supplied <code>property</code>
      */
-    public Component getEditorComponent(Property<T> property, A annotation, PublishingContext context);
+    Component getEditorComponent(Property<T> property, A annotation, PublishingContext context);
 }

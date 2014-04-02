@@ -1,10 +1,11 @@
 package cz.cvut.fit.alg.params.annotations;
 
+import cz.cvut.fit.alg.params.api.PropertyEditor;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import cz.cvut.fit.alg.params.ui.PropertyEditor;
+
 
 /**
  * Marks an annotation as being a property editor.

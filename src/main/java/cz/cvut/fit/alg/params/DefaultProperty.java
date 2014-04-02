@@ -57,11 +57,11 @@ public class DefaultProperty extends AbstractProperty<Object> {
             PropertyUtils.setProperty(sandbox, getFieldName(), value);
             storeSupport.firePropertyChange(getFieldName(), oldValue, value);
         } catch (IllegalAccessException ex) {
-            throw new ConfigurationException("Could not eagerly set value", ex);
+            throw new ConfigException("Could not eagerly set value", ex);
         } catch (InvocationTargetException ex) {
-            throw new ConfigurationException("Could not eagerly set value", ex);
+            throw new ConfigException("Could not eagerly set value", ex);
         } catch (NoSuchMethodException ex) {
-            throw new ConfigurationException("Could not eagerly set value", ex);
+            throw new ConfigException("Could not eagerly set value", ex);
         }
     }
 }

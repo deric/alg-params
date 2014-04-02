@@ -7,11 +7,11 @@ import org.apache.commons.configuration.Configuration;
  * Represents a configurable field on an object.
  *
  * <p>
- * This representation allows the field to be configured either automatically
- * or interactively. The interactive configuration uses a renderer and an editor
+ * This representation allows the field to be configured either automatically or
+ * interactively. The interactive configuration uses a renderer and an editor
  * {@link Component} to display and modify the current value of the underlying
- * field. The automatic configuration uses a {@link ConfigurationProvider}
- * to retrieve the necessary values.
+ * field. The automatic configuration uses a {@link ConfigurationProvider} to
+ * retrieve the necessary values.
  * <strong>NOTE:</strong> All values are validated and the changes are buffered
  * <i>except</i> for eager properties.</p>
  *
@@ -28,7 +28,7 @@ public interface Property<T> {
      * making it possible to change the property value).
      *
      * @return a {@link Component} that is used to set the desired property
-     *         value
+     * value
      */
     Component getEditorComponent();
 
@@ -65,11 +65,11 @@ public interface Property<T> {
     String[] getViolationMessages();
 
     /**
-     * Used for automatic configuration to retrieve the property value using
-     * a {@link Configuration}.
+     * Used for automatic configuration to retrieve the property value using a
+     * {@link Configuration}.
      *
-     * @param provider the <code>Configuration</code> that will be used
-     *                 to retrieve the value
+     * @param provider the <code>Configuration</code> that will be used to
+     * retrieve the value
      */
     @Deprecated
     void configure(Configuration provider);

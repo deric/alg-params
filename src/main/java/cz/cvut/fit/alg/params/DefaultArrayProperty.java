@@ -1,5 +1,7 @@
 package cz.cvut.fit.alg.params;
 
+import cz.cvut.fit.alg.params.api.PropertyEditor;
+import cz.cvut.fit.alg.params.api.PropertyRenderer;
 import java.awt.Color;
 import java.awt.Component;
 import java.beans.PropertyChangeEvent;
@@ -19,8 +21,6 @@ import org.jdesktop.layout.GroupLayout.ParallelGroup;
 import org.jdesktop.layout.GroupLayout.SequentialGroup;
 import org.jdesktop.layout.LayoutStyle;
 import cz.cvut.fit.alg.params.context.PublishingContext;
-import cz.cvut.fit.alg.params.ui.PropertyEditor;
-import cz.cvut.fit.alg.params.ui.PropertyRenderer;
 
 /**
  * A concrete implementation of the

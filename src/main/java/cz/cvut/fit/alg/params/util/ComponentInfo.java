@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.cvut.fit.alg.params.util;
 
 import java.lang.reflect.Field;
@@ -18,23 +14,23 @@ import cz.cvut.fit.alg.params.annotations.Property;
  * @author ytoh
  */
 public class ComponentInfo {
+
     //
-    private final String                name;
+    private final String name;
 //    //
 //    private final Class<?>              type;
     //
-    private final Map<String, Object>   properties;
+    private final Map<String, Object> properties;
 
     /**
      *
      * @param name
-     * @param type
      * @param properties
      */
     public ComponentInfo(String name, Map<String, Object> properties) {
         this.name = name;
 //        this.type = type;
-        this.properties = new HashMap<String,Object>(properties);
+        this.properties = new HashMap<String, Object>(properties);
     }
 
     /**
@@ -50,21 +46,23 @@ public class ComponentInfo {
      * @return
      */
     public Map<String, Object> getProperties() {
-        return new HashMap<String,Object>(properties);
+        return new HashMap<String, Object>(properties);
     }
 
     /**
-     * 
+     *
      * @return
      */
 //    public Class<?> getType() {
 //        return type;
 //    }
-
     /**
      *
      * @param o
      * @return
+     * @throws java.lang.IllegalAccessException
+     * @throws java.lang.reflect.InvocationTargetException
+     * @throws java.lang.NoSuchMethodException
      */
     public static ComponentInfo getInfo(Object o) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         Map<String, Object> properties = new HashMap<String, Object>();

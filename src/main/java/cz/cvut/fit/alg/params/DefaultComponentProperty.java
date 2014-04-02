@@ -1,5 +1,7 @@
 package cz.cvut.fit.alg.params;
 
+import cz.cvut.fit.alg.params.api.PropertyEditor;
+import cz.cvut.fit.alg.params.api.PropertyRenderer;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -7,8 +9,6 @@ import javax.validation.Validator;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.configuration.Configuration;
 import cz.cvut.fit.alg.params.context.PublishingContext;
-import cz.cvut.fit.alg.params.ui.PropertyEditor;
-import cz.cvut.fit.alg.params.ui.PropertyRenderer;
 
 /**
  * A concrete implementation of the
@@ -124,11 +124,11 @@ public class DefaultComponentProperty extends AbstractProperty<Object> {
             PropertyUtils.setProperty(sandbox, getFieldName(), value);
             storeSupport.firePropertyChange(getFieldName(), oldValue, value);
         } catch (IllegalAccessException ex) {
-            throw new ConfigurationException("Could not eagerly set value", ex);
+            throw new ConfigException("Could not eagerly set value", ex);
         } catch (InvocationTargetException ex) {
-            throw new ConfigurationException("Could not eagerly set value", ex);
+            throw new ConfigException("Could not eagerly set value", ex);
         } catch (NoSuchMethodException ex) {
-            throw new ConfigurationException("Could not eagerly set value", ex);
+            throw new ConfigException("Could not eagerly set value", ex);
         }
     }
 

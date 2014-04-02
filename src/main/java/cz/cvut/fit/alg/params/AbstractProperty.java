@@ -1,5 +1,7 @@
 package cz.cvut.fit.alg.params;
 
+import cz.cvut.fit.alg.params.api.PropertyEditor;
+import cz.cvut.fit.alg.params.api.PropertyRenderer;
 import java.awt.Component;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -13,17 +15,16 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import cz.cvut.fit.alg.params.context.PublishingContext;
-import cz.cvut.fit.alg.params.ui.PropertyEditor;
-import cz.cvut.fit.alg.params.ui.PropertyRenderer;
 
 /**
  * A skeletal implementation of the {@link MutableProperty} interface.
  *
  * <p>
- * It takes care of storing the necessary information for visualization
- * and value change detection.</p>
+ * It takes care of storing the necessary information for visualization and
+ * value change detection.</p>
  *
  * @author ytoh
+ * @param <T>
  */
 public abstract class AbstractProperty<T> implements MutableProperty<T> {
 
@@ -76,11 +77,11 @@ public abstract class AbstractProperty<T> implements MutableProperty<T> {
     /**
      * Creates an instance of <code>AbstractProperty</code>.
      *
-     * @param name        human readable name of the property
+     * @param name human readable name of the property
      * @param description human readable description of the property
-     * @param field       underlying field for the property
-     * @param sandbox     object used for side-effect detection
-     * @param validator   {@link Validator} for value validation
+     * @param field underlying field for the property
+     * @param sandbox object used for side-effect detection
+     * @param validator {@link Validator} for value validation
      */
     public AbstractProperty(String name, String description, Field field, Object sandbox, Validator validator) {
         this.name = StringUtils.defaultString(name);
@@ -136,9 +137,15 @@ public abstract class AbstractProperty<T> implements MutableProperty<T> {
         this.setValue(value, true);
     }
 
+    @Override
     public void setValue(T value, boolean propagate) {
         // validations
-        violationMessages = (List<String>) CollectionUtils.collect(validator.validateValue(field.getDeclaringClass(), field.getName(), value, new Class[0]), new Transformer() {
+        violationMessages = (List<String>) CollectionUtils.collect(
+                validator.validateValue(field.getDeclaringClass(),
+                        field.getName(),
+                        value,
+                        new Class[0]),
+                new Transformer() {
 
             public Object transform(Object input) {
                 return ((ConstraintViolation) input).getMessage();
@@ -155,14 +162,32 @@ public abstract class AbstractProperty<T> implements MutableProperty<T> {
         support.firePropertyChange("value", oldValue, this.value);
     }
 
+    /**
+     *
+     * @param <A>
+     * @param editor
+     * @param annotation
+     * @param context
+     */
     public <A extends Annotation> void setEditor(PropertyEditor<T, A> editor, A annotation, PublishingContext context) {
         editorComponent = editor.getEditorComponent(this, annotation, context);
     }
 
+    /**
+     *
+     * @param <A>
+     * @param renderer
+     * @param annotation
+     */
     public <A extends Annotation> void setRenderer(PropertyRenderer<T, A> renderer, A annotation) {
         rendererComponent = renderer.getRendererComponent(this, annotation);
     }
 
+    /**
+     *
+     * @param state
+     */
+    @Override
     public void setPropertyState(PropertyState state) {
         PropertyState oldState = this.state;
         this.state = state;

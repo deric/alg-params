@@ -1,6 +1,6 @@
 package cz.cvut.fit.alg.params.test;
 
-import cz.cvut.fit.alg.params.ConfigurationException;
+import cz.cvut.fit.alg.params.ConfigException;
 import cz.cvut.fit.alg.params.module.BasicModule;
 import cz.cvut.fit.alg.params.module.Module;
 import cz.cvut.fit.alg.params.module.Modules;
@@ -11,7 +11,7 @@ import cz.cvut.fit.alg.params.module.Modules;
  */
 public class Boot {
 
-    public static void main(String[] args) throws ConfigurationException {
+    public static void main(String[] args) throws ConfigException {
 
         Module core = BasicModule.withName("core", Modules.getRootModule())
                 .withComponent(new Object())

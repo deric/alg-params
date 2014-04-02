@@ -1,4 +1,4 @@
-package cz.cvut.fit.alg.params.ui;
+package cz.cvut.fit.alg.params.api;
 
 import java.awt.Component;
 import java.lang.annotation.Annotation;
@@ -9,6 +9,8 @@ import cz.cvut.fit.alg.params.Property;
  * the underlying property.
  *
  * @author ytoh
+ * @param <T>
+ * @param <A>
  */
 public interface PropertyRenderer<T, A extends Annotation> {
 
@@ -20,5 +22,5 @@ public interface PropertyRenderer<T, A extends Annotation> {
      * @param annotation {@link Annotation} defining this renderer
      * @return <code>Component</code> bound to the supplied <code>property</code>
      */
-    public Component getRendererComponent(Property<T> property, A annotation);
+    Component getRendererComponent(Property<T> property, A annotation);
 }

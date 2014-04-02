@@ -2,7 +2,7 @@ package cz.cvut.fit.alg.params.test;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import cz.cvut.fit.alg.params.ConfigurationException;
+import cz.cvut.fit.alg.params.ConfigException;
 
 /**
  *
@@ -14,7 +14,7 @@ public class MaxLengthValidator implements ConstraintValidator<MaxLength, String
 
     public void initialize(MaxLength annotation) {
         if (annotation.value() <= 0) {
-            throw new ConfigurationException("Max length cannot be less then 1 (was " + annotation.value() + ")");
+            throw new ConfigException("Max length cannot be less then 1 (was " + annotation.value() + ")");
         }
 
         maxLength = annotation.value();

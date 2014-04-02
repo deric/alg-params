@@ -1,9 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.cvut.fit.alg.params;
 
+import cz.cvut.fit.alg.params.api.PropertyEditor;
+import cz.cvut.fit.alg.params.api.PropertyRenderer;
 import java.awt.Color;
 import java.awt.Component;
 import java.beans.PropertyChangeEvent;
@@ -25,13 +23,14 @@ import org.jdesktop.layout.GroupLayout.ParallelGroup;
 import org.jdesktop.layout.GroupLayout.SequentialGroup;
 import org.jdesktop.layout.LayoutStyle;
 import cz.cvut.fit.alg.params.context.PublishingContext;
-import cz.cvut.fit.alg.params.ui.PropertyEditor;
-import cz.cvut.fit.alg.params.ui.PropertyRenderer;
 
 /**
- * A concrete implementation of the {@link org.ytoh.configurations.MutableProperty} interface wrapping aroung {@link List} fields.
+ * A concrete implementation of the
+ * {@link cz.cvut.fit.alg.params.MutableProperty} interface wrapping around
+ * {@link List} fields.
  *
- * <p>{@link PropertyEditor}s and {@link PropertyRenderer}s defined on the
+ * <p>
+ * {@link PropertyEditor}s and {@link PropertyRenderer}s defined on the
  * underling field apply for the individual list items not on this property.</p>
  *
  * @author ytoh
@@ -62,17 +61,20 @@ public class DefaultListProperty extends AbstractProperty<Object> {
     /**
      * The property is set only if a new value is provided.
      *
-     * <p>Upon every new value the internal representation of this property
-     * is changed. (e.g. editorComponents and rendererComponents are recreated)</p>
+     * <p>
+     * Upon every new value the internal representation of this property is
+     * changed. (e.g. editorComponents and rendererComponents are recreated)</p>
      *
+     * @param value
+     * @param propagate
      * @see MutableProperty#setValue(java.lang.Object, boolean)
      */
     @Override
     public void setValue(Object value, boolean propagate) {
-        if(value != null) {
+        if (value != null) {
             List list = (List) value;
 
-            if(this.listProperties == null || listValue != value) {
+            if (this.listProperties == null || listValue != value) {
                 listValue = list;
                 create(list);
             }
@@ -186,7 +188,8 @@ public class DefaultListProperty extends AbstractProperty<Object> {
     /**
      * Only stores the provided value for lazy instantiation.
      *
-     * @see MutableProperty#setEditor(org.ytoh.configurations.ui.PropertyEditor, java.lang.annotation.Annotation, org.ytoh.configurations.context.Context)
+     * @see MutableProperty#setEditor(org.ytoh.configurations.ui.PropertyEditor,
+     * java.lang.annotation.Annotation, org.ytoh.configurations.context.Context)
      */
     @Override
     public <A extends Annotation> void setEditor(PropertyEditor<Object, A> editor, A annotation, PublishingContext context) {
@@ -198,7 +201,9 @@ public class DefaultListProperty extends AbstractProperty<Object> {
     /**
      * Only stores the provided value for lazy instantiation.
      *
-     * @see MutableProperty#setRenderer(org.ytoh.configurations.ui.PropertyRenderer, java.lang.annotation.Annotation)
+     * @see
+     * MutableProperty#setRenderer(org.ytoh.configurations.ui.PropertyRenderer,
+     * java.lang.annotation.Annotation)
      */
     @Override
     public <A extends Annotation> void setRenderer(PropertyRenderer<Object, A> renderer, A annotation) {
@@ -211,11 +216,11 @@ public class DefaultListProperty extends AbstractProperty<Object> {
             PropertyUtils.setProperty(sandbox, getFieldName(), listValue);
             storeSupport.firePropertyChange(getFieldName(), Collections.emptyList(), listValue);
         } catch (IllegalAccessException ex) {
-            throw new ConfigurationException("Could not eagerly set value", ex);
+            throw new ConfigException("Could not eagerly set value", ex);
         } catch (InvocationTargetException ex) {
-            throw new ConfigurationException("Could not eagerly set value", ex);
+            throw new ConfigException("Could not eagerly set value", ex);
         } catch (NoSuchMethodException ex) {
-            throw new ConfigurationException("Could not eagerly set value", ex);
+            throw new ConfigException("Could not eagerly set value", ex);
         }
     }
 
@@ -230,9 +235,13 @@ public class DefaultListProperty extends AbstractProperty<Object> {
      */
     private static class ListProperty extends AbstractProperty<Object> {
 
-        /** item index */
+        /**
+         * item index
+         */
         private int index;
-        /** list reference */
+        /**
+         * list reference
+         */
         private List list;
 
         private ListProperty(Field field, Object sandbox, List list, Validator validator, int index) {

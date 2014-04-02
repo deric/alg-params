@@ -1,9 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.cvut.fit.alg.params;
 
+import cz.cvut.fit.alg.params.api.PropertyEditor;
+import cz.cvut.fit.alg.params.api.PropertyRenderer;
 import java.awt.Color;
 import java.awt.Component;
 import java.beans.PropertyChangeEvent;
@@ -23,11 +21,11 @@ import org.jdesktop.layout.GroupLayout.ParallelGroup;
 import org.jdesktop.layout.GroupLayout.SequentialGroup;
 import org.jdesktop.layout.LayoutStyle;
 import cz.cvut.fit.alg.params.context.PublishingContext;
-import cz.cvut.fit.alg.params.ui.PropertyEditor;
-import cz.cvut.fit.alg.params.ui.PropertyRenderer;
 
 /**
- * A concrete implementation of the {@link org.ytoh.configurations.MutableProperty} interface wrapping aroung {@link Map} fields.
+ * A concrete implementation of the
+ * {@link org.ytoh.configurations.MutableProperty} interface wrapping around
+ * {@link Map} fields.
  *
  * <p>{@link PropertyEditor}s and {@link PropertyRenderer}s defined on the
  * underling field apply for the individual mapped items not on this property.</p>
@@ -63,6 +61,8 @@ public class DefaultMapProperty extends AbstractProperty<Object> {
      * <p>Upon every new value the internal representation of this property
      * is changed. (e.g. editorComponents and rendererComponents are recreated)</p>
      *
+     * @param value
+     * @param propagate
      * @see MutableProperty#setValue(java.lang.Object, boolean)
      */
     @Override
@@ -177,7 +177,12 @@ public class DefaultMapProperty extends AbstractProperty<Object> {
     /**
      * Only stores the provided value for lazy instantiation.
      *
-     * @see MutableProperty#setEditor(org.ytoh.configurations.ui.PropertyEditor, java.lang.annotation.Annotation, org.ytoh.configurations.context.Context)
+     * @param <A>
+     * @param editor
+     * @param annotation
+     * @param context
+     * @see MutableProperty#setEditor(cz.cvut.fit.alg.params.api.PropertyEditor,
+     * java.lang.annotation.Annotation, cz.cvut.fit.alg.params.context.Context)
      */
     @Override
     public <A extends Annotation> void setEditor(PropertyEditor<Object, A> editor, A annotation, PublishingContext context) {
@@ -189,7 +194,12 @@ public class DefaultMapProperty extends AbstractProperty<Object> {
     /**
      * Only stores the provided value for lazy instantiation.
      *
-     * @see MutableProperty#setRenderer(org.ytoh.configurations.ui.PropertyRenderer, java.lang.annotation.Annotation)
+     * @param <A>
+     * @param renderer
+     * @param annotation
+     * @see
+     * MutableProperty#setRenderer(cz.cvut.fit.alg.params.api.PropertyRenderer,
+     * java.lang.annotation.Annotation)
      */
     @Override
     public <A extends Annotation> void setRenderer(PropertyRenderer<Object, A> renderer, A annotation) {
