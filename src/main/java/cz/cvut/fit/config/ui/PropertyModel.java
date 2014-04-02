@@ -44,10 +44,9 @@ public class PropertyModel extends AbstractTableModel {
 
     @Override
     public String getColumnName(int column) {
-        if(column == 0) {
+        if (column == 0) {
             return componentTitle;
         }
-
         return "";
     }
 
@@ -57,10 +56,10 @@ public class PropertyModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        if(properties.get(rowIndex).getPropertyState() == PropertyState.DISABLED) {
+        if (properties.get(rowIndex).getPropertyState() == PropertyState.DISABLED) {
             return false;
         }
-        
+
         return columnIndex == 1 && properties.get(rowIndex).getEditorComponent() != null;
     }
 

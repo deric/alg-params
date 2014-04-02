@@ -13,21 +13,22 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class SelectionSetModel<T> extends Model {
-    private T [] elements;
-    private boolean [] elementEnabled;
+
+    private T[] elements;
+    private boolean[] elementEnabled;
 
     public SelectionSetModel() {
         elements = null;
         elementEnabled = new boolean[0];
     }
 
-    public SelectionSetModel(T [] elements) {
+    public SelectionSetModel(T[] elements) {
         this.elements = elements.clone();
         elementEnabled = new boolean[elements.length];
         enableAllElements();
     }
 
-    public void setElements(T [] elements) {
+    public void setElements(T[] elements) {
         this.elements = elements.clone();
         elementEnabled = new boolean[elements.length];
         enableAllElements();
@@ -37,31 +38,31 @@ public class SelectionSetModel<T> extends Model {
         for (int i = 0; i < elements.length; i++) {
             elementEnabled[i] = true;
         }
-        firePropertyChange("Enabled",false,true);
+        firePropertyChange("Enabled", false, true);
     }
 
     public void disableAllElements() {
         for (int i = 0; i < elements.length; i++) {
             elementEnabled[i] = false;
         }
-        firePropertyChange("Enabled",true,false);
+        firePropertyChange("Enabled", true, false);
     }
 
-    public void enableElementIndices(int [] indices) {
+    public void enableElementIndices(int[] indices) {
         disableAllElements();
         for (int i = 0; i < indices.length; i++) {
-            elementEnabled[indices[i]] = true; 
+            elementEnabled[indices[i]] = true;
         }
     }
 
-    public int [] getEnableElementIndices() {
+    public int[] getEnableElementIndices() {
         ArrayList<Integer> enabledIndices = new ArrayList<Integer>(elements.length);
         for (int i = 0; i < elements.length; i++) {
             if (elementEnabled[i]) {
                 enabledIndices.add(i);
             }
         }
-        int [] list = new int[enabledIndices.size()];
+        int[] list = new int[enabledIndices.size()];
         for (int i = 0; i < list.length; i++) {
             list[i] = enabledIndices.get(i);
         }
@@ -85,7 +86,7 @@ public class SelectionSetModel<T> extends Model {
         fireIndexedPropertyChange("Enabled", idx, oldState, state);
     }
 
-    public boolean [] getStateOfElements() {
+    public boolean[] getStateOfElements() {
         return elementEnabled.clone();
     }
 
@@ -95,7 +96,7 @@ public class SelectionSetModel<T> extends Model {
 
     public T[] getEnabledElements(Class<T> type) {
         int count = getCountOfElementsWithState(true);
-        T [] elementsToReturn = (T[]) Array.newInstance(type, count);
+        T[] elementsToReturn = (T[]) Array.newInstance(type, count);
         int retIndex = 0;
         for (int i = 0; i < elementEnabled.length; i++) {
             if (elementEnabled[i]) {
@@ -108,7 +109,7 @@ public class SelectionSetModel<T> extends Model {
 
     public T[] getDisabledElements(Class<T> type) {
         int count = getCountOfElementsWithState(false);
-        T [] elementsToReturn = (T[]) Array.newInstance(type, count);
+        T[] elementsToReturn = (T[]) Array.newInstance(type, count);
         int retIndex = 0;
         for (int i = 0; i < elementEnabled.length; i++) {
             if (!elementEnabled[i]) {
@@ -129,7 +130,7 @@ public class SelectionSetModel<T> extends Model {
         return count;
     }
 
-    public static SelectionSetModel assembleModel(Object [] elements, int [] enabledIndices) {
+    public static SelectionSetModel assembleModel(Object[] elements, int[] enabledIndices) {
         SelectionSetModel model = new SelectionSetModel(elements);
         model.enableElementIndices(enabledIndices);
         return model;

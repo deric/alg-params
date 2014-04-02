@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cz.cvut.fit.config.test;
 
 import java.awt.BorderLayout;
@@ -22,6 +17,7 @@ import cz.cvut.fit.config.util.AnnotationPropertyExtractor;
  * @author ytoh
  */
 public class Boot2 {
+
     public static void main(String[] args) {
         List<String> strings = Arrays.asList("a", "b", "c");
         List<String> trainers = Arrays.asList("linear", "polynomial");

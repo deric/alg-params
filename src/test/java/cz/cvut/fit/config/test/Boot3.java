@@ -47,7 +47,6 @@ public class Boot3 {
 //        System.out.println(Modules.getModuleFullName(moduleB));
 //        System.out.println(Modules.getModuleFullName(extension));
 //        System.out.println(Modules.getModuleFullName(module1));
-
         b = Bean4.getInstance();
         //b = new Bean();
 
@@ -62,19 +61,16 @@ public class Boot3 {
 
 //        System.out.println("b.getArray() = " + Arrays.toString(b.getArray()));
         //System.out.println("b.getSelectorChoice() = " + b.getSelectorChoice());
-
 //        PropertyTable table = new PropertyTable(Modules.getModule("extension/module1").getComponent("bean2"));
 
-/*        String [] sArr = {"jedna", "dve", "tri", "ctyri", "pet"};
-        SelectionSetModel<String> selset = new SelectionSetModel<String>(sArr);
+        /*        String [] sArr = {"jedna", "dve", "tri", "ctyri", "pet"};
+         SelectionSetModel<String> selset = new SelectionSetModel<String>(sArr);
 
-        java.util.List<String> l = new ArrayList<String>();
-        l.add(sArr[0]);l.add(sArr[1]);l.add(sArr[2]);l.add(sArr[3]);l.add(sArr[4]);
+         java.util.List<String> l = new ArrayList<String>();
+         l.add(sArr[0]);l.add(sArr[1]);l.add(sArr[2]);l.add(sArr[3]);l.add(sArr[4]);
 
-        context.register(String.class, l, "model");*/
-
+         context.register(String.class, l, "model");*/
         //b.setModel(selset);
-
         PropertyTable table = new PropertyTable(b, new AnnotationPropertyExtractor(context));
         table.setRowHeight(25);
 
@@ -95,7 +91,6 @@ public class Boot3 {
                 System.out.printf("file: %s\n", b.getPath());
                 System.out.printf("Retezec %s \n", b.getStringValue());
 
-
                 String[] s = b.getModel().getAllElements();
                 boolean[] en = b.getModel().getStateOfElements();
                 for (int i = 0; i < s.length; i++) {
@@ -106,10 +101,8 @@ public class Boot3 {
             }
         });
 
-
 //        File config = new File(Modules.getModuleFullName(module1) + "bean2" + ".properties");
 //        System.out.println(config.getAbsolutePath());
-
 //        ConfigurationManager manager = new AnnotationConfigurationManager(new CommonsConfigurationProvider(new File(Modules.getModuleFullName(module1))));
 //        manager.configure(module1);
     }

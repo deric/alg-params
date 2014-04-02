@@ -9,7 +9,8 @@ import cz.cvut.fit.config.context.MutableContext;
  *
  * @author ytoh
  */
-public class DynamicInRangeValidator implements ConstraintValidator<DynamicRange,Number>, ContextAware {
+public class DynamicInRangeValidator implements ConstraintValidator<DynamicRange, Number>, ContextAware {
+
     private DynamicRange range;
     private MutableContext context;
 
@@ -26,27 +27,27 @@ public class DynamicInRangeValidator implements ConstraintValidator<DynamicRange
     }
 
     public boolean isValid(Number input, ConstraintValidatorContext constraintValidatorContext) {
-        if(input == null) {
+        if (input == null) {
             return true;
         }
 
         double low = range.defaultFrom();
         double high = range.defaultTo();
 
-        if(context != null) {
+        if (context != null) {
 
             Double contextLow = context.get(Double.class, range.fromKey());
             Double contextHigh = context.get(Double.class, range.toKey());
 
-            if(contextLow != null) {
+            if (contextLow != null) {
                 low = contextLow;
             }
 
-            if(contextHigh != null) {
+            if (contextHigh != null) {
                 high = contextHigh;
             }
 
-            if(!(input.doubleValue() >= low && input.doubleValue() <= high)) {
+            if (!(input.doubleValue() >= low && input.doubleValue() <= high)) {
                 constraintValidatorContext.disableDefaultConstraintViolation();
                 constraintValidatorContext.buildConstraintViolationWithTemplate(getErrorMessage(low, high));
                 return false;

@@ -51,7 +51,6 @@ public class SelectionSetEditor extends JDialog implements PropertyEditor<Select
         listModel = new DefaultListModel();
 
         //String [] s = {"a","b", "c"};
-
         list = new JList();
         list.setModel(listModel);
         list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -62,7 +61,6 @@ public class SelectionSetEditor extends JDialog implements PropertyEditor<Select
 
         dialogCloseButton = new JButton("Save selection and close");
         dialogCloseButton.addActionListener(this);
-
 
         scrollPane = new JScrollPane(list);
 //        scrollPane.add(list);
@@ -127,11 +125,11 @@ public class SelectionSetEditor extends JDialog implements PropertyEditor<Select
         }
 
         list.setModel(listModel);
-        int [] selIdcs = selSet.getEnableElementIndices();
-/*        for (int i = 0; i < selIdcs.length; i++) {
-            list.setS;
-        }
-        list.addSelectionInterval(0, o.length - 1);*/
+        int[] selIdcs = selSet.getEnableElementIndices();
+        /*        for (int i = 0; i < selIdcs.length; i++) {
+         list.setS;
+         }
+         list.addSelectionInterval(0, o.length - 1);*/
         list.setSelectedIndices(selIdcs);
         list.revalidate();
         repaint();
@@ -152,7 +150,6 @@ public class SelectionSetEditor extends JDialog implements PropertyEditor<Select
             selSet.enableElement(indices[i]);
         }
 
-
     }
 
     private class SelectionSetEditorSubscriber implements Subscriber {
@@ -162,6 +159,5 @@ public class SelectionSetEditor extends JDialog implements PropertyEditor<Select
         }
 
     }
-
 
 }

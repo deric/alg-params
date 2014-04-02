@@ -21,7 +21,7 @@ public class DelegateTest {
 
     static SelectionSetDelegate deleg;
 
-    public static void main(String [] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException {
 
 //        deleg = new SelectionSetDelegate();
 //        File outputFile = new File("./testconf", "pokus.xml");
@@ -42,9 +42,8 @@ public class DelegateTest {
 //        encoder.writeObject(b);
 //        encoder.flush();
 //        encoder.close();
-
-        SelectionSetModel b = new SelectionSetModel<String>(new String [] {"a", "b", "c", "d"});
-        b.disableAllElements(); 
+        SelectionSetModel b = new SelectionSetModel<String>(new String[]{"a", "b", "c", "d"});
+        b.disableAllElements();
         b.enableElement(1);
         b.enableElement(3);
         Module m = BasicModule.withName("xxx", Modules.getRootModule()).withComponent(b).build();
@@ -58,8 +57,7 @@ public class DelegateTest {
 
         b.disableAllElements();
 
-
-        int [] enabledIndices;
+        int[] enabledIndices;
 
         enabledIndices = b.getEnableElementIndices();
         System.out.printf("Enabled elements:\n");

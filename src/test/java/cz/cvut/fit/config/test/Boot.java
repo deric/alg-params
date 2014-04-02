@@ -10,6 +10,7 @@ import cz.cvut.fit.config.module.Modules;
  * @author ytoh
  */
 public class Boot {
+
     public static void main(String[] args) throws ConfigurationException {
 
         Module core = BasicModule.withName("core", Modules.getRootModule())
@@ -44,12 +45,10 @@ public class Boot {
 //        JFrame f = new JFrame("Table test");
 //        f.getContentPane().setLayout(new BorderLayout());
 //        final Bean b = new Bean();
-
 //        System.out.println("b.getArray() = " + Arrays.toString(b.getArray()));
 //        System.out.println("b.getSwitchers() = " + b.getSwitchers());
 //        System.out.println("b.getSwitcher() = " + b.getSwitcher());
 //        System.out.println("b.getMap() = " + b.getMap());
-
 //        PropertyTable table = new PropertyTable(Modules.getModule("extension/module1").getComponent("bean2"));
 //        PropertyTable table = new PropertyTable(b);
 //        table.setRowHeight(25);
@@ -70,10 +69,8 @@ public class Boot {
 //                System.exit(0);
 //            }
 //        });
-
 //        File config = new File(Modules.getModuleFullName(module1) + "bean2" + ".properties");
 //        System.out.println(config.getAbsolutePath());
-
 //        ConfigurationManager manager = new AnnotationConfigurationManager(new CommonsConfigurationProvider(new File(Modules.getModuleFullName(module1))));
 //        manager.configure(module1);
     }

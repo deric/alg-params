@@ -17,13 +17,10 @@ public class SelectionSetDelegate extends PersistenceDelegate {
     protected Expression instantiate(Object oldInstance, Encoder out) {
         SelectionSetModel model = (SelectionSetModel) oldInstance;
 
+        Object[] items = model.getAllElements();
+        int[] enabledIdcs = model.getEnableElementIndices();
 
-        System.out.printf("Running delegate\n");
-
-        Object [] items = model.getAllElements();
-        int [] enabledIdcs = model.getEnableElementIndices();
-
-        Expression expElems = new Expression(model, model.getClass(), "assembleModel", new Object [] {items, enabledIdcs});
+        Expression expElems = new Expression(model, model.getClass(), "assembleModel", new Object[]{items, enabledIdcs});
         return expElems;
     }
 

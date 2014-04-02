@@ -27,4 +27,3 @@ public @interface DynamicRange {
 
     String message() default "property not in range <{from},{to}>";
 }
-
