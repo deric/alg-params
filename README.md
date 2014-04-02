@@ -1,3 +1,3 @@
-# ytoh-configurations
+# alg-params
 
-Java Bean Annotations for parameters configuration.
+Java Annotations for algorithm's parameters configuration.
