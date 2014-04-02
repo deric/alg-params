@@ -2,8 +2,6 @@ package cz.cvut.fit.config.module;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.lang.Validate;
-import cz.cvut.fit.config.test.Bean4;
-import cz.cvut.fit.config.ui.SelectionSetDelegate;
 
 import java.beans.PersistenceDelegate;
 import java.beans.XMLEncoder;
@@ -21,11 +19,11 @@ import java.util.logging.Logger;
  */
 public class XmlSerializer implements ModuleSerializer {
 
-    /** */
-	private String baseDir;
+    private String baseDir;
     private boolean verboseExceptions = true;
 
     private class DelegateHolder {
+
         private Class<?> servedType;
         private PersistenceDelegate delegate;
 
@@ -55,7 +53,6 @@ public class XmlSerializer implements ModuleSerializer {
     private ArrayList<DelegateHolder> delegates;
     private SerializerExceptionHandler excHandler = new SerializerExceptionHandler();
 
-
     public XmlSerializer() {
         delegates = new ArrayList<DelegateHolder>(5);
     }
@@ -76,16 +73,16 @@ public class XmlSerializer implements ModuleSerializer {
         return encoder;
     }
 
-	public void serializeModule(Module module) {
-		String moduleFullName = Modules.getModuleFullName(module);
+    public void serializeModule(Module module) {
+        String moduleFullName = Modules.getModuleFullName(module);
 
-		File outputDirectory = new File(baseDir + moduleFullName);
+        File outputDirectory = new File(baseDir + moduleFullName);
 
-        if(!outputDirectory.exists()) {
+        if (!outputDirectory.exists()) {
             outputDirectory.mkdirs();
         }
 
-		Validate.isTrue(outputDirectory.canWrite(), "The module directory must be writable.");
+        Validate.isTrue(outputDirectory.canWrite(), "The module directory must be writable.");
 
         // serialize all child modules
         for (Module m : module.getChildren()) {
@@ -93,26 +90,26 @@ public class XmlSerializer implements ModuleSerializer {
         }
 
         // then serialize the components within this module
-		for (String name : module.getComponentNames()) {
+        for (String name : module.getComponentNames()) {
 
-			try {
+            try {
                 XMLEncoder encoder = generateEncoder(outputDirectory, name);
                 if (verboseExceptions) {
                     encoder.setExceptionListener(excHandler);
                 }
-                System.out.printf("Writing: %s\n",module.getComponent(name).toString());
-				encoder.writeObject(module.getComponent(name));
-				encoder.flush();
-				encoder.close();
-			} catch (FileNotFoundException ex) {
-				Logger.getLogger(XmlSerializer.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-	}
+                System.out.printf("Writing: %s\n", module.getComponent(name).toString());
+                encoder.writeObject(module.getComponent(name));
+                encoder.flush();
+                encoder.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(XmlSerializer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
-	public void setConfiguration(Configuration configuration) {
-		this.baseDir = configuration.getString("modules.baseDir");
-	}
+    public void setConfiguration(Configuration configuration) {
+        this.baseDir = configuration.getString("modules.baseDir");
+    }
 
     public void setConfigurationDirectory(String path) {
         this.baseDir = path;
